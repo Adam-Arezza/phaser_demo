@@ -9,6 +9,8 @@ class Stickman extends Phaser.Physics.Arcade.Sprite{
 
     create(){
         this.setScale(2)
+        this.body.collideWorldBounds = true
+        this.body.setBounceX(1)
         this.body.setGravityY(1000)
         this.body.pushable = false
         this.anims.create({

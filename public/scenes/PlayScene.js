@@ -1,4 +1,5 @@
 import Stickman from "../objects/Stickman.js"
+import HealthBar from "../objects/HealthBar.js"
 import Enemy from "../objects/Enemy.js"
 
 class PlayScene extends Phaser.Scene {
@@ -7,7 +8,7 @@ class PlayScene extends Phaser.Scene {
     }
 
     create() {
-        
+
         //set scene background
         this.background = this.add.tileSprite(0, 0, this.game.config.width, this.game.config.height, "background")
         this.background.setOrigin(0, 0)
@@ -27,14 +28,14 @@ class PlayScene extends Phaser.Scene {
 
         // create scene physics
         this.physics.world.setBounds(0, 0, this.game.config.width, this.game.config.height)
-        this.physics.add.collider(this.stickman, this.enemy, () => this.lose())
+        this.physics.add.collider(this.stickman, this.enemy, () => this.handleEnemyCollision())
         this.physics.add.collider(this.enemy, this.ground)
 
         //get keyboard inputs
         this.cursorKeys = this.input.keyboard.createCursorKeys()
 
         //create healthbar for scene
-        this.healthbar = this.makeBar(25, 20, 0x2ecc71)
+        this.healthbar = new HealthBar(this, 25,20)
     }
 
     update() {
@@ -47,25 +48,26 @@ class PlayScene extends Phaser.Scene {
         this.enemy.move()
     }
 
-    makeBar(x, y, color) {
-        let bar = this.add.graphics()
-        bar.fillStyle(color, 1)
-        bar.fillRect(0, 0, 200, 25)
-        bar.x = x
-        bar.y = y
-        return bar
-    }
-
-    setHealth(bar, val) {
-        bar.scaleX = val / 100
-    }
-
-    lose() {
-        this.stickman.disableBody()
-        this.add.text(this.game.config.width / 2, this.game.config.height / 2, "GAME OVER" ,{ font: "20px, Arial", fill: "black" }).setScale(3)
+    handleEnemyCollision() {
+        if (this.healthbar.total == 25) {
+            this.healthbar.decrease(25)
+            this.stickman.disableBody()
+            this.add.text(this.game.config.width / 2, this.game.config.height / 2, "GAME OVER", { font: "20px, Arial", fill: "black" }).setScale(3)
+            setTimeout(() => {
+                this.scene.start()
+            }, 2000)
+        }
+        this.healthbar.decrease(25)
+        if (this.stickman.x <= this.enemy.x) {
+            this.stickman.x -= 100
+        }
+        else {
+            this.stickman.x += 100
+        }
+        this.enemy.disableBody()
         setTimeout(() => {
-            this.scene.start()
-        }, 2000)
+            this.enemy.enableBody()
+        }, 1000)
     }
 }
 
