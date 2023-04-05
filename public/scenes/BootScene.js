@@ -1,4 +1,4 @@
-class scene_1 extends Phaser.Scene {
+class BootScene extends Phaser.Scene {
     constructor(){
         super("bootGame")
 
@@ -6,11 +6,10 @@ class scene_1 extends Phaser.Scene {
 
     preload(){
         this.load.image("background", "assets/images/backgrounds/background_1.png")
-        // this.load.image("stickman", "assets/sprites/stickman.png")
         this.load.image("gameover", "assets/images/backgrounds/gameover.png")
         this.load.atlas("stickman", "assets/spritesheets/stickman.png", "assets/spritesheets/stickman.json")
         this.load.image("ground", "assets/images/backgrounds/ground.png")
-        this.load.image("baddy", "assets/sprites/baddy.png")
+        this.load.image("enemy", "assets/sprites/baddy.png")
     }
 
     create() {
@@ -24,3 +23,5 @@ class scene_1 extends Phaser.Scene {
         }, 1000)
     }
 }
+
+export default BootScene
