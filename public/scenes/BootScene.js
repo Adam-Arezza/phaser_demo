@@ -10,6 +10,7 @@ class BootScene extends Phaser.Scene {
         this.load.atlas("stickman", "assets/spritesheets/stickman.png", "assets/spritesheets/stickman.json")
         this.load.image("ground", "assets/images/backgrounds/ground.png")
         this.load.image("enemy", "assets/sprites/baddy.png")
+        this.load.image("health", "assets/sprites/health.png")
     }
 
     create() {

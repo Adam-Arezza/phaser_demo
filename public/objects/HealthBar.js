@@ -13,8 +13,9 @@ class HealthBar {
         this.draw()
     }
 
-    increase() {
-
+    increase(val) {
+        this.total += val
+        this.draw()
     }
 
     draw() {
