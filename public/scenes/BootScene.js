@@ -5,7 +5,7 @@ class BootScene extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image("background", "assets/images/backgrounds/background_1.png")
+        this.load.image("background", "assets/images/backgrounds/background_3.png")
         this.load.image("gameover", "assets/images/backgrounds/gameover.png")
         this.load.atlas("stickman", "assets/spritesheets/stickman.png", "assets/spritesheets/stickman.json")
         this.load.image("ground", "assets/images/backgrounds/ground.png")
